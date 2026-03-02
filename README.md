@@ -8,8 +8,8 @@ Observed behavior:
 ## Commands From `git clone`
 
 ```bash
-git clone https://github.com/Meet0223/journal-voice-shadow-sm-challenge.git
-cd journal-voice-shadow-sm-challenge
+git clone https://github.com/Meet0223/journal-voice-lifecycle-challenge.git
+cd journal-voice-lifecycle-challenge
 npm install
 npm test
 ```
