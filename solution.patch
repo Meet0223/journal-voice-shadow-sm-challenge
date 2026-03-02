@@ -1,28 +1,23 @@
-diff --git a/app/(tabs)/journal/exploration.tsx b/app/(tabs)/journal/exploration.tsx
-index c018f0c..58beb1d 100644
---- a/app/(tabs)/journal/exploration.tsx
-+++ b/app/(tabs)/journal/exploration.tsx
-@@
--                  <Animated.View 
--                    entering={FadeInDown.delay(200).duration(600)}
--                    className="rounded-3xl p-6 mb-8 shadow-sm"
--                    style={{ backgroundColor: PALETTE.white, shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 10, shadowOffset: { width: 0, height: 4 } }}
--                  >
-+                  <Animated.View
-+                    entering={FadeInDown.delay(200).duration(600)}
-+                    className="rounded-3xl p-6 mb-8"
-+                    style={{ backgroundColor: PALETTE.white, shadowColor: '#000', shadowOpacity: 0.05, shadowRadius: 10, shadowOffset: { width: 0, height: 4 } }}
-+                  >
-@@
--                      <TouchableOpacity
--                        onPress={handleDialogueSubmit}
--                        disabled={userInput.trim().length < 5}
--                        className={`py-4 rounded-xl items-center justify-center shadow-sm ${userInput.trim().length < 5 ? 'opacity-50' : 'opacity-100'}`}
--                        style={{ backgroundColor: PALETTE.terracotta }}
--                      >
-+                      <TouchableOpacity
-+                        onPress={handleDialogueSubmit}
-+                        disabled={userInput.trim().length < 5}
-+                        className={`py-4 rounded-xl items-center justify-center ${userInput.trim().length < 5 ? 'opacity-50' : 'opacity-100'}`}
-+                        style={{ backgroundColor: PALETTE.terracotta }}
-+                      >
+diff --git a/src/uiClassNames.js b/src/uiClassNames.js
+index 5c2d6c5..2d2e55d 100644
+--- a/src/uiClassNames.js
++++ b/src/uiClassNames.js
+@@ -1,14 +1,14 @@
+ const MODE_SEGMENT_BASE = 'flex-1 py-3 rounded-full flex-row items-center justify-center';
+ 
+ export function getTextModeClass(_isActive) {
+-  return `${MODE_SEGMENT_BASE} ${isActive ? 'shadow-sm' : ''}`.trim();
++  return MODE_SEGMENT_BASE;
+ }
+ 
+ export function getVoiceModeClass(_isActive) {
+-  return `${MODE_SEGMENT_BASE} ${isActive ? 'shadow-sm' : ''}`.trim();
++  return MODE_SEGMENT_BASE;
+ }
+ 
+ export function getSubmitButtonClass(isDisabled) {
+-  return `py-4 rounded-xl items-center justify-center shadow-sm ${
++  return `py-4 rounded-xl items-center justify-center ${
+     isDisabled ? 'opacity-50' : 'opacity-100'
+   }`;
+ }

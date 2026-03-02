@@ -1,38 +1,47 @@
-# Journal Voice Crash Challenge (`shadow-sm` / Expo Go / navigation context)
+# Reframe Voice `shadow-sm` Navigation Context Challenge
 
-## Summary
-This package documents a real bug from this app's journaling flow:
+This is a sanitized, minimal repro of a journal exploration bug:
 
-- Flow: `Journal -> Reframe -> "Let me think..." -> voice input`
-- Symptom: tapping **Start Recording** caused a navigation-context crash/forced screen exit in Expo Go.
-- Root cause: `shadow-sm` Tailwind utility usage in the exploration screen (`app/(tabs)/journal/exploration.tsx`).
+- Flow: `Reframe -> Let me think... -> Voice`
+- Symptom: navigation-context failure during rapid close/unmount around recording completion.
+- Root trigger in this repro: `shadow-sm` class tokens in the voice-flow segmented controls.
 
-The failure looked like a routing/context lifecycle issue, but the fix was removing `shadow-sm` from the affected screen.
+The repository starts in a broken state.
 
-## Before/Fix Commits
-- Before (broken): `8b426b12f9fdfed52c56d6b5a5cd0ecde94c898b`
-- Fix commit: `c556e23849247caf723926e7c01c9ffc892a7714`
-- Affected file: `app/(tabs)/journal/exploration.tsx`
-
-## Programmatic Verification
-Run from repo root:
+## Commands (from `git clone`)
 
 ```bash
-bash aly-app/llm-hard-problems/journal-voice-shadow-sm/verify.sh
+git clone https://github.com/<your-username>/reframe-voice-shadow-sm-repro.git
+cd reframe-voice-shadow-sm-repro
+npm run verify:broken
 ```
 
-What it verifies:
-1. `c556e23` is directly built on top of `8b426b1` (before-state provenance).
-2. `shadow-sm` appears in the broken commit snapshot.
-3. `shadow-sm` is absent in the fix commit snapshot.
-4. The fix commit contains the expected removals for this screen.
+Expected output for broken state:
+- Broken verification passes by confirming tests fail (`Broken-state verification passed`).
 
-## Why This Is Hard
-- Error surface: navigation context / screen lifecycle failure.
-- Actual trigger: styling utility token (`shadow-sm`) in a different-looking concern (UI className).
-- Typical debugging leads to router/audio code; actual resolution is style-level and non-obvious.
+To validate an example fix:
 
-## Included Files
-- `verify.sh`: automated verifier (no human interaction).
-- `solution.patch`: minimal example patch showing the effective fix.
-- `dm-message.md`: ready-to-send message template for the bounty tweet.
+```bash
+npm run verify:fixed
+```
+
+Expected output for fixed state:
+- Test suite passes.
+
+## Agent Task
+
+Starting from broken state, make `npm test` pass without modifying tests.
+
+Primary files:
+- `src/journalExplorationController.js`
+- `src/uiClassNames.js`
+- `src/riskHeuristics.js`
+
+## Included Example Solution
+
+- `solution.patch` contains one valid fix path.
+- `npm run apply:solution` copies the fixed file snapshot, then `npm test` should pass.
+
+## Why This Is Non-Obvious
+
+Failure appears as navigation context instability, but the trigger is style-token-driven risk gating (`shadow-sm`) in the voice flow classes.
