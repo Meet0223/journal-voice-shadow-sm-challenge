@@ -1,47 +1,32 @@
-# Reframe Voice `shadow-sm` Navigation Context Challenge
+# Reframe Voice Navigation Context Repro
 
-This is a sanitized, minimal repro of a journal exploration bug:
+Sanitized minimal repro of a journal exploration voice-input bug.
 
-- Flow: `Reframe -> Let me think... -> Voice`
-- Symptom: navigation-context failure during rapid close/unmount around recording completion.
-- Root trigger in this repro: `shadow-sm` class tokens in the voice-flow segmented controls.
+Observed behavior:
+- During rapid close/unmount around recording completion, the flow can throw a navigation-context error.
 
-The repository starts in a broken state.
-
-## Commands (from `git clone`)
+## Commands From `git clone`
 
 ```bash
-git clone https://github.com/<your-username>/reframe-voice-shadow-sm-repro.git
-cd reframe-voice-shadow-sm-repro
-npm run verify:broken
+git clone https://github.com/Meet0223/journal-voice-shadow-sm-challenge.git
+cd journal-voice-shadow-sm-challenge
+npm install
+npm test
 ```
 
-Expected output for broken state:
-- Broken verification passes by confirming tests fail (`Broken-state verification passed`).
+Expected initial result:
+- At least one failing test in the cloned state.
 
-To validate an example fix:
+## Task
 
-```bash
-npm run verify:fixed
-```
+Fix the implementation so tests pass, without editing tests.
 
-Expected output for fixed state:
-- Test suite passes.
-
-## Agent Task
-
-Starting from broken state, make `npm test` pass without modifying tests.
-
-Primary files:
+Relevant files:
 - `src/journalExplorationController.js`
 - `src/uiClassNames.js`
 - `src/riskHeuristics.js`
 
-## Included Example Solution
+## Notes
 
-- `solution.patch` contains one valid fix path.
-- `npm run apply:solution` copies the fixed file snapshot, then `npm test` should pass.
-
-## Why This Is Non-Obvious
-
-Failure appears as navigation context instability, but the trigger is style-token-driven risk gating (`shadow-sm`) in the voice flow classes.
+- This repository intentionally starts in a failing state.
+- If you want to retry from a clean baseline, use `git restore .`.

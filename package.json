@@ -4,10 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test",
-    "reset:broken": "node scripts/reset-broken.mjs",
-    "apply:solution": "node scripts/apply-solution.mjs",
-    "verify:broken": "npm run reset:broken && node scripts/expect-test-fail.mjs",
-    "verify:fixed": "npm run apply:solution && npm test"
+    "test": "node --test"
   }
 }
